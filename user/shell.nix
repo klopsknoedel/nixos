@@ -15,7 +15,6 @@ in
     syntaxHighlighting.enable = true;
     enableCompletion = true;
     shellAliases = shellAliases;
-
     history = {
       expireDuplicatesFirst = true;
       ignoreAllDups = true;
@@ -25,7 +24,11 @@ in
     oh-my-zsh= {
       enable = true;
       theme = "bureau";
-    };
+      extraConfig = ''
+        zstyle :omz:plugins:ssh-agent id_ed25519_codeberg
+      '';
+
+   };
   };
 
   home.packages = with pkgs; [
