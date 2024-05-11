@@ -4,9 +4,13 @@
   home.username = "sascha";
   home.homeDirectory = "/home/sascha";
 
-  home.stateVersion = "23.11";
-
   programs.home-manager.enable = true;
+  
+  imports = [
+    ./user/base-pkgs.nix
+  ];
+
+  home.stateVersion = "23.11";
 
   home.packages = (with pkgs; [
     zsh
@@ -38,4 +42,6 @@
       };
     };
   };
+
+  news.display = "silent";
 }
