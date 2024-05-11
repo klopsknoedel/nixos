@@ -8,6 +8,7 @@
   
   imports = [
     ./user/base-pkgs.nix
+    ./user/shell.nix
   ];
 
   home.stateVersion = "23.11";
