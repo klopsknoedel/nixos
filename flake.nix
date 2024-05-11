@@ -11,7 +11,7 @@
       globalSettings = {
         arch = "aarch64-linux";
       };
-      pkgs = import inputs.nixpkgs {
+      pkgs = import inputs.nixpkgs-stable {
         system = globalSettings.arch;
         config = {
           allowUnfree = true;
@@ -23,11 +23,13 @@
       home-manager = (inputs.home-manager-stable);
 
     in {
-      nixosConfigurations.klopsnix = lib.nixosSystem {
-        system = globalSettings.arch;
-        modules = [
-          ./configuration.nix
-        ];
+      nixosConfigurations = {
+        klopsmachine = lib.nixosSystem {
+          system = globalSettings.arch;
+          modules = [
+            ./configuration.nix
+          ];
+        };
       };
 
       homeConfigurations = {
@@ -36,6 +38,11 @@
           modules = [
             ./home.nix
           ];
+          extraSpecialArgs = {
+            # pass config variables from above
+            inherit pkgs;
+            inherit inputs;
+          };
         };
       };
     };

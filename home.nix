@@ -1,21 +1,41 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
   home.username = "sascha";
   home.homeDirectory = "/home/sascha";
 
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
   home.stateVersion = "23.11";
 
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  home.packages = (with pkgs; [
+    zsh
+    git
+    neovim
+    kitty
+    alacritty
+  ]);
+
+  xdg = {
+    enable = true;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      music = "${config.home.homeDirectory}/Media/Music";
+      videos = "${config.home.homeDirectory}/Media/Videos";
+      pictures = "${config.home.homeDirectory}/Media/Pictures";
+      templates = "${config.home.homeDirectory}/Templates";
+      download = "${config.home.homeDirectory}/Downloads";
+      documents = "${config.home.homeDirectory}/Documents";
+      desktop = null;
+      publicShare = null;
+      extraConfig = {
+        XDG_NIXCONF_DIR = "${config.home.homeDirectory}/.nixconf";
+        XDG_DOTFILES_DIR = "${config.home.homeDirectory}/.dotfiles";
+        XDG_ARCHIVE_DIR = "${config.home.homeDirectory}/Archive";
+        XDG_VM_DIR = "${config.home.homeDirectory}/Machines";
+        XDG_ORG_DIR = "${config.home.homeDirectory}/Org";
+      };
+    };
+  };
 }
