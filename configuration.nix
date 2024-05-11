@@ -34,10 +34,12 @@
    # useXkbConfig = true; # use xkb.options in tty.
   };
 
-  nix.package = pkgs.nixFlakes;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   nixpkgs.config.allowUnfree = true;
   # Enable the X11 windowing system.
