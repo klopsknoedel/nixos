@@ -80,7 +80,13 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  programs.ssh.startAgent = true;
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      AcceptEnv COLORTERM LC_*
+    '';
+  };
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
