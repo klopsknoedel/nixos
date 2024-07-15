@@ -5,8 +5,7 @@
 
 {
   imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+    [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" "usb_storage" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
@@ -16,19 +15,19 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/536d2db0-bc70-474c-aba3-db66a81c12fe";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [ "noatime" "compress-force=zstd:2" "discard=async" "commit=120" "clear_cache" "space_cache=v2" "subvol=@" ];
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/536d2db0-bc70-474c-aba3-db66a81c12fe";
       fsType = "btrfs";
-      options = [ "subvol=@HOME" ];
+      options = [ "noatime" "compress-force=zstd:2" "discard=async" "commit=120" "clear_cache" "space_cache=v2" "subvol=@HOME" ];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/536d2db0-bc70-474c-aba3-db66a81c12fe";
       fsType = "btrfs";
-      options = [ "subvol=@NIX" ];
+      options = [ "noatime" "compress-force=zstd:2" "discard=async" "commit=120" "clear_cache" "space_cache=v2" "subvol=@NIX" ];
     };
 
   fileSystems."/boot" =
@@ -36,6 +35,11 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+
+  services.btrfs.autoScrub = {
+      enable = true;
+      interval = "weekly";
+  };
 
   swapDevices = [ ];
 
