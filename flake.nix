@@ -2,8 +2,8 @@
   description = "Base Flake";
 
   inputs = {
-    nixpkgs-stable.url = "nixpkgs/nixos-24.11";
-    home-manager-stable.url = "github:nix-community/home-manager/release-24.11";
+    nixpkgs-stable.url = "nixpkgs/nixos-25.05";
+    home-manager-stable.url = "github:nix-community/home-manager/release-25.05";
   };
 
   outputs = inputs@{ self, ... }:
